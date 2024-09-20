@@ -1,0 +1,3 @@
+Extract from this message that you find to be useful for the system to remember and use in future interactions.
+Each of this must have content string that is found to be useful if not found than give it is blank string and
+useful boolean that is true if the content is useful and false if not useful.

@@ -53,6 +53,14 @@ public class ProductChatController {
                 .content();
     }
 
+    @GetMapping("/chat")
+    public String chat(@RequestParam String message) {
+        return chatClient
+                .prompt()
+                .user(message)
+                .call().content();
+    }
+
 
     @GetMapping("/continue/{companyId}")
     public String continueChat(
