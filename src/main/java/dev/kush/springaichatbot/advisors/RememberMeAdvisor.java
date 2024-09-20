@@ -3,7 +3,7 @@ package dev.kush.springaichatbot.advisors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.AdvisedRequest;
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.client.advisor.api.RequestAdvisor;
+import org.springframework.ai.chat.client.RequestResponseAdvisor;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +19,7 @@ import java.util.concurrent.ExecutorService;
 
 @Component
 @Slf4j
-public class RememberMeAdvisor implements RequestAdvisor {
+public class RememberMeAdvisor implements RequestResponseAdvisor {
 
     private final ChatClient chatClient;
 
