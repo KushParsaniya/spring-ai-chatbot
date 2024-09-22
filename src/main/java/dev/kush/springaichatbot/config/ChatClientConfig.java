@@ -1,6 +1,5 @@
 package dev.kush.springaichatbot.config;
 
-import dev.kush.springaichatbot.advisors.RememberMeAdvisor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.memory.ChatMemory;
@@ -23,15 +22,13 @@ public class ChatClientConfig {
 
     private final ChatMemory chatMemory;
 
-    private final RememberMeAdvisor rememberMeAdvisor;
-
     @Bean
     ChatClient productChatClient(ChatClient.Builder builder) throws IOException {
         return builder
 //                .defaultAdvisors(new PromptChatMemoryAdvisor(chatMemory, null, 20,
 //                        chatMemoryAdvisorPrompt.getContentAsString(Charset.defaultCharset())))
-                .defaultAdvisors(rememberMeAdvisor)
-                .defaultSystem(productSystemPrompt)
+//                .defaultAdvisors(rememberMeAdvisor)
+//                .defaultSystem(productSystemPrompt)
                 .defaultFunctions(
                         "getProductsByProductNameAndCompanyIdAndIsDeleted",
                         "getProductCountFromProductNameAndCompanyIdAndIsDeleted",

@@ -3,6 +3,7 @@ package dev.kush.springaichatbot.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.RequestResponseAdvisor;
 import org.springframework.ai.chat.client.advisor.PromptChatMemoryAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,6 +28,8 @@ public class ProductChatController {
 
     private final ChatMemory chatMemory;
 
+    private final RequestResponseAdvisor rememberMeAdvisor;
+
     @Value("classpath:prompts/product-user-prompt.txt")
     private Resource productUserPrompt;
 
@@ -34,9 +37,10 @@ public class ProductChatController {
     private Resource chatMemoryAdvisorPrompt;
 
 
-    public ProductChatController(@Qualifier("productChatClient") ChatClient chatClient, ChatMemory chatMemory) {
+    public ProductChatController(@Qualifier("productChatClient") ChatClient chatClient, ChatMemory chatMemory, RequestResponseAdvisor rememberMeAdvisor) {
         this.chatClient = chatClient;
         this.chatMemory = chatMemory;
+        this.rememberMeAdvisor = rememberMeAdvisor;
     }
 
     @GetMapping("/init/{companyId}")
@@ -57,6 +61,7 @@ public class ProductChatController {
     public String chat(@RequestParam String message) {
         return chatClient
                 .prompt()
+                .advisors(rememberMeAdvisor)
                 .user(message)
                 .call().content();
     }

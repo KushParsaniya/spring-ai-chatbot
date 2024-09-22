@@ -33,7 +33,6 @@ public class RememberMeAdvisor implements RequestResponseAdvisor {
         this.executorService = executorService;
     }
 
-
     @Override
     public AdvisedRequest adviseRequest(AdvisedRequest request, Map<String, Object> adviseContext) {
 
@@ -51,7 +50,7 @@ public class RememberMeAdvisor implements RequestResponseAdvisor {
             }
         });
 
-        return request;
+        return RequestResponseAdvisor.super.adviseRequest(request, adviseContext);
     }
 
     private boolean extractMemoryIfPossible(AdvisedRequest request) {
@@ -71,7 +70,7 @@ public class RememberMeAdvisor implements RequestResponseAdvisor {
     }
 
     private boolean worthKeepingMemory(MemoryExtractionResult memoryExtractionResult) {
-        return !memoryExtractionResult.content().isBlank() && memoryExtractionResult.useful();
+        return memoryExtractionResult != null && !memoryExtractionResult.content().isBlank() && memoryExtractionResult.useful();
     }
 
     private List<Message> memoryBasicExtraction(AdvisedRequest request) {
